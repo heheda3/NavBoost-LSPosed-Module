@@ -1,28 +1,50 @@
-name: Build NavBoost APK
+name: Android Build
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    # 检出代码
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: Set up JDK 11
+    # 设置 JDK
+    - name: Set up JDK
       uses: actions/setup-java@v3
       with:
+        distribution: 'zulu'
         java-version: '11'
-        distribution: 'temurin'
 
-    - name: Build with Gradle
-      run: ./gradlew clean assembleRelease
-
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v3
+    # 设置 Android SDK
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v2
       with:
-        name: navboost-apk
-        path: app/build/outputs/apk/release/*.apk
+        api-level: 33
+        build-tools: 33.0.2
+        target: android-33
+
+    # 安装依赖
+    - name: Install dependencies
+      run: ./gradlew dependencies
+
+    # 构建 APK
+    - name: Build APK
+      run: ./gradlew assembleRelease assembleDebug
+
+    # 上传构建产物
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: APKs
+        path: |
+          app/build/outputs/apk/release/*.apk
+          app/build/outputs/apk/debug/*.apk
