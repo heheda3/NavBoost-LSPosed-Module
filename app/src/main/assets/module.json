@@ -1,0 +1,9 @@
+{
+  "name": "NavBoost",
+  "version": "1.0",
+  "description": "导航播报时增强音量（+N dB），保持 duck 效果",
+  "author": "叶文林",
+  "main_class": "com.navboost.HookEntry",
+  "min_sdk": 21,
+  "target_sdk": 33
+}
