@@ -1,10 +1,7 @@
-name: Android Build
+name: Android Build Debug
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -37,8 +34,11 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug --stacktrace
 
-    - name: Check output directory
-      run: ls -R app/build/outputs/apk/
+    - name: List build directory
+      run: ls -R app/build/
+
+    - name: Debug APK Path
+      run: find app/ -type f -name "*.apk"
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
