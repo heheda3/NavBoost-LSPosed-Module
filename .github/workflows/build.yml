@@ -17,20 +17,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # 设置 JDK
+    # 设置 JDK（使用 Java 17）
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
         distribution: 'zulu'
-        java-version: '11'
+        java-version: '17'
 
     # 设置 Android SDK
     - name: Set up Android SDK
       uses: android-actions/setup-android@v2
       with:
-        api-level: 33
-        build-tools: 33.0.2
-        target: android-33
+        tools: |
+          cmdline-tools;latest
+          platform-tools
+          build-tools;33.0.2
+        channel: '0'
 
     # 安装依赖
     - name: Install dependencies
