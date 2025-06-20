@@ -8,7 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+steps:
+  - name: Build Release APK
+    run: ./gradlew clean assembleRelease
+    
     steps:
     - uses: actions/checkout@v3
 
