@@ -1,4 +1,4 @@
-name: Android Build Debug
+name: Android CI
 
 on:
   push:
@@ -26,7 +26,6 @@ jobs:
           cmdline-tools;latest
           platform-tools
           build-tools;33.0.2
-        channel: '0'
 
     - name: Grant execute permissions for gradlew
       run: chmod +x ./gradlew
@@ -34,7 +33,7 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug --stacktrace
 
-    - name: List build directory
+    - name: Debug build directory
       run: ls -R app/build/
 
     - name: Debug APK Path
