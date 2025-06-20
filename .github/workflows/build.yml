@@ -17,6 +17,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+        
+    - name: Grant execute permission for Gradle Wrapper
+      run: chmod +x ./gradlew
 
     - name: Build with Gradle
       run: ./gradlew clean assembleRelease
